@@ -1,3 +1,10 @@
-aws_region = "eu-west-1"
-blue_weight  = 100
-green_weight = 0
+aws_region          = "eu-west-1"
+blue_weight         = 100
+green_weight        = 0
+blue_template_name  = "cmtr-uad9vkoz-blue-template"
+green_template_name = "cmtr-uad9vkoz-green-template"
+blue_tg_name        = "cmtr-uad9vkoz-blue-tg"
+green_tg_name       = "cmtr-uad9vkoz-green-tg"
+blue_asg_name       = "cmtr-uad9vkoz-blue-asg"
+green_asg_name      = "cmtr-uad9vkoz-green-asg"
+lb_name             = "cmtr-uad9vkoz-lb"

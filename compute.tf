@@ -1,5 +1,5 @@
 resource "aws_launch_template" "blue" {
-  name          = "cmtr-uad9vkoz-blue-template"
+  name          = var.blue_template_name
   instance_type = "t3.micro"
   image_id      = data.aws_ami.amazon_linux.id
 
@@ -20,8 +20,9 @@ resource "aws_launch_template" "blue" {
     EOF
   )
 }
+
 resource "aws_launch_template" "green" {
-  name          = "cmtr-uad9vkoz-green-template"
+  name          = var.green_template_name
   instance_type = "t3.micro"
   image_id      = data.aws_ami.amazon_linux.id
 
@@ -42,21 +43,23 @@ resource "aws_launch_template" "green" {
     EOF
   )
 }
+
 resource "aws_lb_target_group" "blue" {
-  name     = "cmtr-uad9vkoz-blue-tg"
+  name     = var.blue_tg_name
   port     = 80
   protocol = "HTTP"
   vpc_id   = data.aws_vpc.vpc.id
 }
 
 resource "aws_lb_target_group" "green" {
-  name     = "cmtr-uad9vkoz-green-tg"
+  name     = var.green_tg_name
   port     = 80
   protocol = "HTTP"
   vpc_id   = data.aws_vpc.vpc.id
 }
+
 resource "aws_autoscaling_group" "blue" {
-  name                = "cmtr-uad9vkoz-blue-asg"
+  name                = var.blue_asg_name
   desired_capacity    = 1
   min_size            = 1
   max_size            = 2
@@ -76,7 +79,7 @@ resource "aws_autoscaling_group" "blue" {
 }
 
 resource "aws_autoscaling_group" "green" {
-  name                = "cmtr-uad9vkoz-green-asg"
+  name                = var.green_asg_name
   desired_capacity    = 1
   min_size            = 1
   max_size            = 2
@@ -96,7 +99,7 @@ resource "aws_autoscaling_group" "green" {
 }
 
 resource "aws_lb" "lb" {
-  name               = "cmtr-uad9vkoz-lb"
+  name               = var.lb_name
   internal           = false
   load_balancer_type = "application"
   security_groups    = [data.aws_security_group.HTTP_access_to_ALB.id]
